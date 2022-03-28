@@ -1,6 +1,14 @@
+var hours = document.querySelectorAll(".hour p");
 
-var time = moment().format('MMMM Do YYYY, h:mm:ss a');
-document.getElementById("currentDay").innerHTML = time
+
+
+var time = moment();
+console.log(time);
+document.getElementById("currentDay").innerHTML = time.format('MMMM Do YYYY, h:mm:ss a');
+
+
+
+
 
 if (localStorage["time1"]){
     var time1 = localStorage["time1"];
@@ -119,7 +127,7 @@ if (localStorage["time9"]){
     document.getElementById("time9").value = time9; 
 }
 else{
-    document.getElementById("time9").placeholder = "Description";
+    document.getElementById("time9").placeholder = "Event Description";
 }
 document.getElementById("butt9").addEventListener("click", function ()
 {
@@ -127,5 +135,27 @@ document.getElementById("butt9").addEventListener("click", function ()
     localStorage.setItem("time9", time9); 
     alert("Event Saved")
 } , false);
+
+for (let index = 0; index < hours.length; index++) {
+    const element = hours[index].textContent;
+    var hourMoment = moment(element, "ha");
+    console.log(moment(element, "ha"));
+    hourMoment.isBefore(time)
+    console.log(hourMoment.isBefore(time));
+
+    if(hourMoment.isBefore(time)){
+        hours[index].classList.add("past");
+    }
+
+    if(hourMoment.isSame(time)){
+        hours[index].classList.add("present");
+    }
+
+    if(hourMoment.isAfter(time)){
+        hours[index].classList.add("future");
+    }
+    
+}
+
 
 
